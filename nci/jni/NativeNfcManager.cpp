@@ -364,11 +364,6 @@ static void nfaConnectionCallback(uint8_t connEvent,
       }
 
       nativeNfcTag_resetPresenceCheck();
-      if (!isListenMode(eventData->activated) &&
-          (prevScreenState == NFA_SCREEN_STATE_OFF_LOCKED ||
-           prevScreenState == NFA_SCREEN_STATE_OFF_UNLOCKED)) {
-        NFA_Deactivate(FALSE);
-      }
       if (isPeerToPeer(eventData->activated)) {
         if (sReaderModeEnabled) {
           DLOG_IF(INFO, nfc_debug_enabled) << StringPrintf(
@@ -1964,7 +1959,7 @@ static jboolean nfcManager_doSetNfcSecure(JNIEnv* e, jobject o,
 ** JNI functions for android-4.0.1_r1
 **
 *****************************************************************************/
-static JNINativeMethod gMethods[] = {
+static const JNINativeMethod gMethods[] = {
     {"doDownload", "()Z", (void*)nfcManager_doDownload},
 
     {"initializeNativeStructure", "()Z", (void*)nfcManager_initNativeStruc},
